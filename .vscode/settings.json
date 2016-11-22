@@ -1,0 +1,4 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "python.linting.pylintPath": "/home/dturner/Documents/python/portfolio/venv/bin/pylint"
+}
