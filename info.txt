@@ -1,0 +1,30 @@
+""" This is the doc """
+
+# show installed modules
+help("modules")
+
+# create new virtual environment
+# $ virtualenv <DIR>
+# $ source <DIR>/bin/activate
+# this will set the current shell to use the virtualenvironment
+# use -p option to set the interpreter
+#   e.g. -p /usr/bin/python2.7
+
+# to exit virtual environment
+# $ deactivate
+
+# Running virtualenv with the option --no-site-packages
+# will not include the packages that are installed globally
+
+# In order to keep your environment consistent,
+# it's a good idea to 'freeze' the current state of the environment packages.
+# $ pip freeze > requirements.txt
+# Then you can reinstall the environment with
+# $ pip install -r requirements.txt
+
+# FLask
+# $ export FLASK_APP = app.py
+# $ flask run
+# or with debugging enabled
+# $ export FLASK_DEBUG = 1
+# $ flask run
