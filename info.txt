@@ -22,9 +22,15 @@ help("modules")
 # Then you can reinstall the environment with
 # $ pip install -r requirements.txt
 
-# FLask
+
+#### FLask
+### Unix
 # $ export FLASK_APP = app.py
 # $ flask run
 # or with debugging enabled
 # $ export FLASK_DEBUG = 1
+# $ flask run
+
+### Windows 
+# $ set FLASK_APP = app.py
 # $ flask run
