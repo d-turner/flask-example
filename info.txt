@@ -1,36 +1,50 @@
 """ This is the doc """
 
-# show installed modules
+~~~ Show installed modules
 help("modules")
 
-# create new virtual environment
-# $ virtualenv <DIR>
-# $ source <DIR>/bin/activate
-# this will set the current shell to use the virtualenvironment
-# use -p option to set the interpreter
-#   e.g. -p /usr/bin/python2.7
+~~~ Create new virtual environment
+ $ virtualenv <DIR>
+ $ source <DIR>/bin/activate
+ this will set the current shell to use the virtualenvironment
+ use -p option to set the interpreter
+   e.g. -p /usr/bin/python2.7
 
-# to exit virtual environment
-# $ deactivate
+ to exit virtual environment
+ $ deactivate
 
-# Running virtualenv with the option --no-site-packages
-# will not include the packages that are installed globally
+ Running virtualenv with the option --no-site-packages
+ will not include the packages that are installed globally
 
-# In order to keep your environment consistent,
-# it's a good idea to 'freeze' the current state of the environment packages.
-# $ pip freeze > requirements.txt
-# Then you can reinstall the environment with
-# $ pip install -r requirements.txt
+ In order to keep your environment consistent,
+ it's a good idea to 'freeze' the current state of the environment packages.
+ $ pip freeze > requirements.txt
+ Then you can reinstall the environment with
+ $ pip install -r requirements.txt
 
 
-#### FLask
-### Unix
-# $ export FLASK_APP = app.py
-# $ flask run
-# or with debugging enabled
-# $ export FLASK_DEBUG = 1
-# $ flask run
+~~~ FLask
+ Unix
+ $ export FLASK_APP = app.py
+ $ flask run
+ or with debugging enabled
+ $ export FLASK_DEBUG = 1
+ $ flask run
 
-### Windows 
-# $ set FLASK_APP = app.py
-# $ flask run
+ Windows 
+ $ set FLASK_APP = app.py
+ $ flask run
+
+~~~ Database
+Database schema can go into this portfolio folder
+Schema file is usually called schema.sql
+e.g.
+drop table if exists entries;
+create table entries (
+  id integer primary key autoincrement,
+  title text not null,
+  'text' text not null
+);
+
+Configuration settings for the application 
+http://flask.pocoo.org/docs/0.11/tutorial/setup/tutorial-setup
