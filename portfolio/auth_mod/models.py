@@ -1,15 +1,15 @@
 '''models auth interacts with'''
 __author__ = 'dturner'
 
+import uuid
 from portfolio.common.database import Database
 from flask import session
-import uuid 
 
 # Define a User model
 class User(object):
-    '''User model {username, password, pass}'''
+    '''User model {email, password, name, _id}'''
 
-    def __init__(self, name, email, password, _id=None):
+    def __init__(self, email, password, name=None, _id=None):
         self.name = name
         self.email = email
         self.password = password
@@ -22,14 +22,17 @@ class User(object):
         if data is not None:
             return cls(**data)
 
+
     @classmethod
     def get_by_id(cls, _id):
         data = Database.find_one('users', {'_id': _id})
         if data is not None:
             return cls(**data)
 
+
     @staticmethod
-    def login_valid(email, password):
+    def validate_login(email, password):
+        '''Check whether a user's email and password are correct'''
         user = User.get_by_email(email)
         if user is not None:
             # need to add in the salt algorithm here
@@ -38,11 +41,51 @@ class User(object):
 
 
     @staticmethod
-    def login(user_email):
-        # Login valid 
-        session['email'] = user_email
+    def login(email, password):
+        '''Attempt to login a user'''
+        if User.validate_login(email, password) is True:
+            session['email'] = email
+        else:
+            # do something else
+            session['email'] = None
 
 
     @staticmethod
-    def register(self):
-        pass
+    def logout():
+        session['email'] = None
+
+
+    @classmethod
+    def register(cls, email, password, name=None):
+        user = cls.get_by_email(email)
+        if user is None:
+            new_user = cls(email, password, name)
+            new_user.save_to_mongo()
+            # need to redirect to login page
+            return True
+        else:
+            return False
+
+
+    def json(self):
+        return {'name' : self.name,
+                'password' : self.password,
+                'email' : self.email,
+                '_id' : self._id}
+
+
+    @classmethod
+    def from_mongo(cls, _id):
+        user = Database.find_one(collection='users',
+                                 query={'_id': _id})
+        # cls(** object) is the same as
+        # name=user['name'],
+        # password=user['password'],
+        # email=user['email'],
+        # _id=user['_id']
+        return cls(**user)
+
+
+    def save_to_mongo(self):
+        Database.insert(collection='users',
+                        json=self.json())
