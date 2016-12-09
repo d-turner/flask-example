@@ -9,13 +9,16 @@ index_mod = Blueprint('index', __name__,
 @index_mod.route('/')
 def index():
     '''Index route'''
-    return 'Index page'
+    try:
+        return render_template('index/home.html')
+    except TemplateNotFound:
+        abort(404)
 
 
-@index_mod.route('/home/')
+@index_mod.route('/home')
 def home():
     '''Home route'''
     try:
-        return render_template('home.html')
+        return render_template('index/home.html')
     except TemplateNotFound:
         abort(404)
