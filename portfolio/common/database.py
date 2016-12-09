@@ -3,14 +3,14 @@ import pymongo
 
 
 class Database(object):
-    URI = 'mongodb://127.0.0.1:27017' # replace with raspi
+    URI = 'mongodb://dturner:password@192.168.1.17:27017/test' # replace with raspi
     DATABASE = None
 
     @staticmethod
     def init():
         '''Setup the mongo database'''
         client = pymongo.MongoClient(Database.URI)
-        Database.DATABASE = client['fullstack']
+        Database.DATABASE = client['test']
 
     @staticmethod
     def insert(collection, json):
