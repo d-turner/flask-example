@@ -4,7 +4,7 @@ import portfolio
 
 
 class Database(object):
-    URI = 'mongodb://dturner:password@192.168.1.17:27017/test' # replace with raspi
+    URI = 'mongodb://username:password@127.0.0.1:27017/name'
     DATABASE = None
 
     @staticmethod
