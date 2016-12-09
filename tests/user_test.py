@@ -45,8 +45,7 @@ class FlaskrTestCase(unittest.TestCase):
             email='test@test.com',
             password='5678',
             name='Test2 test2')
-        print result1, result2
-        assert result1, result2
+        assert result1 != result2, "Could not register first user"
         self.assertFalse(result2, "Registered user with existing email")
 
 
