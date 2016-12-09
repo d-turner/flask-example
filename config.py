@@ -1,9 +1,10 @@
-# Statement for enabling the development environment
-DEBUG = True
-
+'''Configuration file for application, imported in __init__'''
 # Define the application directory
 import os
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# Statement for enabling the development environment
+DEBUG = True
 
 # Define the database - we are working with
 # SQLite for this example
