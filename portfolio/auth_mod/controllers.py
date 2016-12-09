@@ -8,25 +8,22 @@ auth_mod = Blueprint('auth', __name__,
 @auth_mod.route('/auth/register', methods=['GET', 'POST'])
 def register():
     '''Register route'''
-    try:
-        return render_template('signup.html')
-    except TemplateNotFound:
-        abort(404)
+    return render_template('auth/signup.html')
 
 
 @auth_mod.route('/auth/login', methods=['GET', 'POST'])
 def login():
     '''Login route'''
     try:
-        return render_template('signin.html')
+        return render_template('auth/signin.html')
     except TemplateNotFound:
         abort(404)
 
 
-@auth_mod.route('/auth/forgot', method=['POST'])
+@auth_mod.route('/auth/forgot', methods=['POST'])
 def forgot_password():
     '''Forgot password route'''
     try:
-        return render_template('forgot.html')
+        return render_template('auth/forgot.html')
     except TemplateNotFound:
         abort(404)
