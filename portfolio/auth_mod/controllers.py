@@ -1,5 +1,5 @@
 '''Auth routes'''
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, request, abort
 from jinja2 import TemplateNotFound
 
 auth_mod = Blueprint('auth', __name__,
@@ -8,7 +8,10 @@ auth_mod = Blueprint('auth', __name__,
 @auth_mod.route('/auth/register', methods=['GET', 'POST'])
 def register():
     '''Register route'''
-    return render_template('auth/signup.html')
+    if request.method == 'GET':
+        return render_template('auth/signup.html')
+    else:
+        return "hello"
 
 
 @auth_mod.route('/auth/login', methods=['GET', 'POST'])
