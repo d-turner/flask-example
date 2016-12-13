@@ -1,27 +1,24 @@
 '''Setup for application testing'''
-import os
+__author__ = 'dturner'
+
 import unittest
-import tempfile
 import sys
 sys.path.append('../portfolio')
 from portfolio import app
 from portfolio.auth_mod import models
-from portfolio.common import database
+from portfolio.common.mongo import Mongo
 
 class FlaskrTestCase(unittest.TestCase):
 
     def setUp(self):
-        database.Database.init()
-        self.db_fd, app.config['DATABASE'] = tempfile.mkstemp()
+        Mongo.init()
         app.config['TESTING'] = True
         self.app = app.test_client()
-        database.Database.DATABASE.users.drop()
+        Mongo.DATABASE.users.drop()
 
 
     def tearDown(self):
-        os.close(self.db_fd)
-        os.unlink(app.config['DATABASE'])
-        database.Database.DATABASE.users.drop()
+        Mongo.DATABASE.users.drop()
 
 
 ### User testing ###
