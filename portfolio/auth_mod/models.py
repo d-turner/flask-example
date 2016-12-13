@@ -2,7 +2,7 @@
 __author__ = 'dturner'
 
 import uuid
-from portfolio.common.database import Database
+from portfolio.common.mongo import Mongo
 from flask import session
 
 # Define a User model
@@ -18,14 +18,14 @@ class User(object):
 
     @classmethod
     def get_by_email(cls, email):
-        data = Database.find_one('users', {'email': email})
+        data = Mongo.find_one('users', {'email': email})
         if data is not None:
             return cls(**data)
 
 
     @classmethod
     def get_by_id(cls, _id):
-        data = Database.find_one('users', {'_id': _id})
+        data = Mongo.find_one('users', {'_id': _id})
         if data is not None:
             return cls(**data)
 
@@ -76,8 +76,8 @@ class User(object):
 
     @classmethod
     def from_mongo(cls, _id):
-        user = Database.find_one(collection='users',
-                                 query={'_id': _id})
+        user = Mongo.find_one(collection='users',
+                              query={'_id': _id})
         # cls(** object) is the same as
         # name=user['name'],
         # password=user['password'],
@@ -87,5 +87,5 @@ class User(object):
 
 
     def save_to_mongo(self):
-        Database.insert(collection='users',
-                        json=self.json())
+        Mongo.insert(collection='users',
+                     json=self.json())
