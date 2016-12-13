@@ -48,3 +48,16 @@ create table entries (
 
 Configuration settings for the application 
 http://flask.pocoo.org/docs/0.11/tutorial/setup/tutorial-setup
+
+information on pymongo here ...
+import pymongo
+client = pymongo.MongoClient('mongodb://URI')
+# connecting to a database
+db = client.databse_to_use
+# listing collections
+db.collection_names()
+
+# iterate through a collection
+users = db.users
+for user in users:
+    print user
