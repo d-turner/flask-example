@@ -1,6 +1,6 @@
 '''Database setup'''
 import pymongo
-from portfolio import app
+import portfolio
 
 
 class Mongo(object):
@@ -10,8 +10,8 @@ class Mongo(object):
     @staticmethod
     def init():
         '''Setup the mongo database'''
-        client = pymongo.MongoClient(app.config['MONGO_DATABASE_URI'])
-        Mongo.DATABASE = client[app.config['MONGO_DATABASE_NAME']]
+        client = pymongo.MongoClient(portfolio.app.config['MONGO_DATABASE_URI'])
+        Mongo.DATABASE = client[portfolio.app.config['MONGO_DATABASE_NAME']]
 
     @staticmethod
     def insert(collection, json):
