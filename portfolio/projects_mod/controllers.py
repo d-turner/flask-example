@@ -1,5 +1,7 @@
 '''projects routes '''
 from portfolio import app
+from flask import Blueprint, render_template, abort
+from jinja2 import TemplateNotFound
 
 @app.route('/projects/')
 def projects():
