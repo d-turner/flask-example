@@ -1,6 +1,6 @@
 ''' Flask controller'''
 from flask import Flask, render_template
-from portfolio.common.database import Database
+from portfolio.common.mongo import Mongo
 
 # Import a module / component using its Blueprint handler variable (index_mod)
 from portfolio.index_mod.controllers import index_mod as index_module
@@ -14,7 +14,7 @@ app.config.from_object('config')
 ## setup db here
 @app.before_first_request
 def init_database():
-    Database.init()
+    Mongo.init()
 
 # Register Blueprints
 app.register_blueprint(index_module)
