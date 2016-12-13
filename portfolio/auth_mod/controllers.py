@@ -11,7 +11,7 @@ def register():
     if request.method == 'GET':
         return render_template('auth/signup.html')
     else:
-        return "hello"
+        return "not yet implemented"
 
 
 @auth_mod.route('/auth/login', methods=['GET', 'POST'])
