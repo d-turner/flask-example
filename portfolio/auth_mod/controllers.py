@@ -1,6 +1,7 @@
 '''Auth routes'''
-from flask import Blueprint, render_template, request, abort
+from flask import Blueprint, render_template, request, abort, url_for, redirect
 from jinja2 import TemplateNotFound
+from portfolio.auth_mod.models import User
 
 auth_mod = Blueprint('auth', __name__,
                      template_folder='templates/auth')
@@ -11,7 +12,12 @@ def register():
     if request.method == 'GET':
         return render_template('auth/signup.html')
     else:
-        raise NotImplementedError('Implement register POST')
+        email = request.form['email']
+        password = request.form['password']
+        name = request.form['name']
+        if User.register(email, password, name):
+            return redirect(url_for('auth.login'))
+        raise NotImplementedError('auth/register POST failed')
 
 
 @auth_mod.route('/auth/login', methods=['GET', 'POST'])
