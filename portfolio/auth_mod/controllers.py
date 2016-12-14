@@ -11,16 +11,19 @@ def register():
     if request.method == 'GET':
         return render_template('auth/signup.html')
     else:
-        return "not yet implemented"
+        raise NotImplementedError('Implement register POST')
 
 
 @auth_mod.route('/auth/login', methods=['GET', 'POST'])
 def login():
     '''Login route'''
-    try:
-        return render_template('auth/signin.html')
-    except TemplateNotFound:
-        abort(404)
+    if request.method == 'GET':
+        try:
+            return render_template('auth/signin.html')
+        except TemplateNotFound:
+            abort(404)
+    else:
+        raise NotImplementedError('Implement login POST')
 
 
 @auth_mod.route('/auth/forgot', methods=['POST'])
