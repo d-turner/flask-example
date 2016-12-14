@@ -7,6 +7,7 @@ sys.path.append('../portfolio')
 from portfolio import app
 from portfolio.auth_mod import models
 from portfolio.common.mongo import Mongo
+from flask import session
 
 class FlaskrTestCase(unittest.TestCase):
 
@@ -38,13 +39,47 @@ class FlaskrTestCase(unittest.TestCase):
             email='test@test.com',
             password='1234',
             name='Test1 test1')
+        self.assertTrue(result1, "Could not register first user")
         result2 = models.User.register(
             email='test@test.com',
             password='5678',
             name='Test2 test2')
-        assert result1 != result2, "Could not register first user"
+        self.assertNotEqual(result1, result2, "Registered user with existing email")
         self.assertFalse(result2, "Registered user with existing email")
 
+    def test_login_existing_user(self):
+        '''Register user and attempt to login that user'''
+        with app.test_request_context():
+            result1 = models.User.register(
+                email='test@test.com',
+                password='1234',
+                name='Test test')
+            self.assertTrue(result1, 'Could not register user')
+            models.User.login(
+                email='test@test.com',
+                password='1234')
+            self.assertEqual(session['email'], 'test@test.com', 'Failed to add user to the session')
+
+    def test_login_non_user(self):
+        '''Attempt to login non-registered user'''
+        with app.test_request_context():
+            models.User.login(
+                email='test@test.com',
+                password='1234')
+            self.assertEqual(session['email'], None, 'User was added to the session')
+
+    def test_login_bad_password(self):
+        '''Register user and attempt to login that user'''
+        with app.test_request_context():
+            result1 = models.User.register(
+                email='test@test.com',
+                password='1234',
+                name='Test test')
+            self.assertTrue(result1, 'Could not register initial user')
+            models.User.login(
+                email='test@test.com',
+                password='12345')
+            self.assertEqual(session['email'], None, 'User was added to the session')
 
 if __name__ == '__main__':
     unittest.main()
