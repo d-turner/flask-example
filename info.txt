@@ -59,5 +59,6 @@ db.collection_names()
 
 # iterate through a collection
 users = db.users
-for user in users:
-    print user
+user_iter = users.find()
+for user_name in user_itr:
+    print user_name
