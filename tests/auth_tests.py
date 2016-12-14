@@ -3,7 +3,6 @@ __author__ = 'dturner'
 
 import unittest
 import sys
-import json
 sys.path.append('../portfolio')
 from portfolio import app
 
@@ -22,7 +21,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_register_get(self):
         response = self.app.get('/auth/register')
-        self.assertEqual(response.data, '', 'Get request failed')
+        self.assertEqual(response.status_code, 200, 'Failed to get the register page')
 
     def test_register_post(self):
         email = 'test@test.com'
@@ -30,15 +29,25 @@ class FlaskrTestCase(unittest.TestCase):
         response = self.app.post('/auth/register', data=dict(
             email=email,
             password=password), follow_redirects=True)
-        self.assertEqual(response.data, 'not yet implemented', 'Post request failed')
+        self.assertEqual(response.status_code, 201, 'Register post request failed')
 
-    def test_login(self):
+    def test_login_get(self):
         response = self.app.get('/auth/login')
-        self.assertEqual(response.data, '', 'Login request failed')
+        self.assertEqual(response.status_code, 200, 'Failed to get the login page')
+
+    def test_login_post(self):
+        email = 'test@test.com',
+        password = 'pass123'
+        response = self.app.post('/auth/logon', data=dict(
+            email=email,
+            password=password), follow_redirects=True)
+        self.assertEqual(response.status_code, 201, 'Login post request failed')
 
     def test_forgot_password(self):
-        response = self.app.post('/auth/forgot')
-        self.assertEqual(response.data, '', 'Forgot request failed')
+        email = 'test@test.com',
+        response = self.app.post('/auth/forgot', data=dict(
+            email=email), follow_redirects=True)
+        self.assertEqual(response.status_code, 201, 'Forgot password request failed')
 
 
 if __name__ == '__main__':
