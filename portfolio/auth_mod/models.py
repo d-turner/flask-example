@@ -61,8 +61,6 @@ class User(object):
         if user is None:
             new_user = cls(email, password, name)
             new_user.save_to_mongo()
-            # need to redirect to login page
-            # update the session if needed
             return True
         else:
             return False
