@@ -14,8 +14,9 @@ $ pip install -r requirements.txt
 
 ## Project
 This repository just contains some sample code for setting up 
-a flask project. Functionality includes MongoDB, external 
-configuration files, unit tests, User model and flask Blueprints.  
+a flask project.  
+Functionality includes MongoDB, external configuration files,  
+unit tests, User model and flask Blueprints.  
 Register, login, logout and forgot password functionality.  
 Working register form using jinja2 html template.  
 
