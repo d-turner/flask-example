@@ -15,7 +15,8 @@ def register():
     else:
         email = request.form['email']
         password = request.form['password']
-        name = request.form['name']
+        #name = request.form['name']
+        name = "temp"
         if User.register(email, password, name):
             return redirect(url_for('auth.login'))
         return render_template(
