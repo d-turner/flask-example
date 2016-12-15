@@ -35,6 +35,31 @@ class FlaskrTestCase(unittest.TestCase):
             name="Test test"), follow_redirects=False)
         self.assertEqual(response.status_code, 302, 'Register post request failed, no redirect')
 
+    def test_register_post_redirect(self):
+        email = 'test@test.com'
+        password = 'pass123'
+        response = self.app.post('/auth/register', data=dict(
+            email=email,
+            password=password,
+            name="Test test"), follow_redirects=True)
+        self.assertEqual(response.status_code, 200, 'Register post request failed, redirect failed')
+
+    def test_register_post_existing(self):
+        email = 'test@test.com'
+        password = 'pass123'
+        response1 = self.app.post('/auth/register', data=dict(
+            email=email,
+            password=password,
+            name="Test test"), follow_redirects=False)
+        self.assertEqual(response1.status_code, 302,
+                         'First register post request failed, no redirect')
+        response2 = self.app.post('/auth/register', data=dict(
+            email=email,
+            password=password,
+            name="Test test"), follow_redirects=False)
+        self.assertIn('Email already in use', response2.data,
+                      'Error message not in response')
+
     def test_login_get(self):
         response = self.app.get('/auth/login')
         self.assertEqual(response.status_code, 200, 'Failed to get the login page')
