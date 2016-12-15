@@ -1,4 +1,5 @@
 '''Auth routes'''
+import portfolio.constants as constants
 from flask import Blueprint, render_template, request, abort, url_for, redirect
 from jinja2 import TemplateNotFound
 from portfolio.auth_mod.models import User
@@ -17,7 +18,9 @@ def register():
         name = request.form['name']
         if User.register(email, password, name):
             return redirect(url_for('auth.login'))
-        raise NotImplementedError('auth/register POST failed')
+        return render_template(
+            'auth/signup.html',
+            error=constants.EMAIL_IN_USE_ERROR)
 
 
 @auth_mod.route('/auth/login', methods=['GET', 'POST'])
