@@ -1,3 +1,12 @@
 {% if error %}
 <p><strong>Error:</strong> {{ error }}
 {% endif %}
+<form id="register-form" action="/auth/register" method=post>
+    <dl>
+      <dt>Username:
+      <dd><input type=text id="email" name="email">
+      <dt>Password:
+      <dd><input type=password id="password" name=password>
+    </dl>
+    <p><input type=submit value=register>
+  </form>
