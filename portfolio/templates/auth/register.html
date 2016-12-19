@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Register</h1>
+  <form id="register-form" action="/auth/register" method="post" name="register-form">
+      {{ form.hidden_tag() }}
+      {% if error %}
+      <p><strong>Error:</strong> {{ error }}
+      {% endif %}
+      <p>
+        Email Address:<br>
+        {{ form.email }}<br>
+      </p>
+      <p>
+        Password:<br>
+        {{ form.password }}<br>
+      </p>
+      <!--<p>{{ form.remember_me }} Remember Me</p>-->
+      <p><input type="submit" value="Register"></p>
+  </form>
+{% endblock %}
+
+<!-- original from 
+{% if error %}
+<p><strong>Error:</strong> {{ error }}
+{% endif %}
+<form id="register-form" action="/auth/register" method=post>
+    <dl>
+      <dt>Username:
+      <dd><input type=text id="email" name="email">
+      <dt>Password:
+      <dd><input type=password id="password" name=password>
+    </dl>
+    <p><input type=submit value=register>
+  </form>
+  -->
