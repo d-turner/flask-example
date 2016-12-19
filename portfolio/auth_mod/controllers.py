@@ -1,7 +1,8 @@
-'''Auth routes'''
-import portfolio.constants as constants
-from flask import Blueprint, render_template, request, abort, url_for, redirect
+'''Authentication and Session routes'''
+from flask import Blueprint, abort, redirect, render_template, request, url_for
 from jinja2 import TemplateNotFound
+
+import portfolio.constants as constants
 from portfolio.auth_mod.models import User
 
 auth_mod = Blueprint('auth', __name__,
@@ -9,15 +10,13 @@ auth_mod = Blueprint('auth', __name__,
 
 @auth_mod.route('/auth/register', methods=['GET', 'POST'])
 def register():
-    '''Register route'''
     if request.method == 'GET':
         return render_template('auth/signup.html')
     else:
         email = request.form['email']
         password = request.form['password']
         #name = request.form['name']
-        name = "temp"
-        if User.register(email, password, name):
+        if User.register_user(email, password):
             return redirect(url_for('auth.login'))
         return render_template(
             'auth/signup.html',
@@ -26,7 +25,6 @@ def register():
 
 @auth_mod.route('/auth/login', methods=['GET', 'POST'])
 def login():
-    '''Login route'''
     if request.method == 'GET':
         try:
             return render_template('auth/signin.html')
@@ -38,8 +36,8 @@ def login():
 
 @auth_mod.route('/auth/forgot', methods=['POST'])
 def forgot_password():
-    '''Forgot password route'''
     try:
-        return render_template('auth/forgot.html')
+        #return render_template('auth/forgot.html')
+        raise NotImplementedError('Implement forgot POST')
     except TemplateNotFound:
         abort(404)
