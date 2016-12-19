@@ -9,7 +9,6 @@ class Mongo(object):
 
     @staticmethod
     def init():
-        '''Setup the mongo database'''
         client = pymongo.MongoClient(portfolio.app.config['MONGO_DATABASE_URI'])
         Mongo.DATABASE = client[portfolio.app.config['MONGO_DATABASE_NAME']]
 
