@@ -67,7 +67,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_login_post(self):
         email = 'test@test.com'
         password = 'pass123'
-        response = self.app.post('/auth/logon', data=dict(
+        response = self.app.post('/auth/login', data=dict(
             email=email,
             password=password), follow_redirects=True)
         self.assertEqual(response.status_code, 201, 'Login post request failed')
