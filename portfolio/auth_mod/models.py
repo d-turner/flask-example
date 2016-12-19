@@ -5,7 +5,6 @@ import uuid
 from portfolio.common.mongo import Mongo
 from flask import session
 
-# Define a User model
 class User(object):
     '''User model {email, password, name, _id}'''
 
@@ -31,8 +30,7 @@ class User(object):
 
 
     @staticmethod
-    def validate_login(email, password):
-        '''Check whether a user's email and password are correct'''
+    def validate_credentials(email, password):
         user = User.get_by_email(email)
         if user is not None:
             # need to add in the salt algorithm here
@@ -41,9 +39,8 @@ class User(object):
 
 
     @staticmethod
-    def login(email, password):
-        '''Attempt to login a user'''
-        if User.validate_login(email, password) is True:
+    def login_user(email, password):
+        if User.validate_credentials(email, password) is True:
             session['email'] = email
         else:
             # do something else
@@ -51,12 +48,12 @@ class User(object):
 
 
     @staticmethod
-    def logout():
+    def logout_user():
         session['email'] = None
 
 
     @classmethod
-    def register(cls, email, password, name=None):
+    def register_user(cls, email, password, name=None):
         user = cls.get_by_email(email)
         if user is None:
             new_user = cls(email, password, name)
@@ -64,6 +61,11 @@ class User(object):
             return True
         else:
             return False
+
+
+    @classmethod
+    def register_user_successful(self):
+        pass
 
 
     def json(self):
