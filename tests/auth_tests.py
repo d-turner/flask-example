@@ -12,6 +12,8 @@ class FlaskrTestCase(unittest.TestCase):
     def setUp(self):
         Mongo.init()
         app.config['TESTING'] = True
+        app.config['WTF_CSRF_ENABLED'] = False
+        #app.config['CSRF_ENABLED'] = False
         self.app = app.test_client()
         Mongo.DATABASE.users.drop()
 
