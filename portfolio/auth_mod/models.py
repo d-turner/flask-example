@@ -58,6 +58,7 @@ class User(object):
         if user is None:
             new_user = cls(email, password, name)
             new_user.save_to_mongo()
+            session['email'] = email
             return True
         else:
             return False
